@@ -150,29 +150,49 @@ namespace Lidgren.Network
 
 		private void DestoreMessage(double now, int storeIndex, out bool resetTimeout)
 		{
-			// reset timeout if we receive ack within kThreshold of sending it
-			const double kThreshold = 2.0;
-			var srm = m_storedMessages[storeIndex];
-			resetTimeout = (srm.NumSent == 1) && (now - srm.LastSent < kThreshold);
+            try
+            {
+                // reset timeout if we receive ack within kThreshold of sending it
+                const double kThreshold = 2.0;
+                var srm = m_storedMessages[storeIndex];
+                resetTimeout = (srm.NumSent == 1) && (now - srm.LastSent < kThreshold);
 
-			var storedMessage = srm.Message;
+                var storedMessage = srm.Message;
 
-			// on each destore; reduce recyclingcount so that when all instances are destored, the outgoing message can be recycled
-			Interlocked.Decrement(ref storedMessage.m_recyclingCount);
+                // on each destore; reduce recyclingcount so that when all instances are destored, the outgoing message can be recycled
+                Interlocked.Decrement(ref storedMessage.m_recyclingCount);
 #if DEBUG
-			if (storedMessage == null)
-				throw new NetException("m_storedMessages[" + storeIndex + "].Message is null; sent " + m_storedMessages[storeIndex].NumSent + " times, last time " + (NetTime.Now - m_storedMessages[storeIndex].LastSent) + " seconds ago");
+			    if (storedMessage == null)
+				    throw new NetException("m_storedMessages[" + storeIndex + "].Message is null; sent " + m_storedMessages[storeIndex].NumSent + " times, last time " + (NetTime.Now - m_storedMessages[storeIndex].LastSent) + " seconds ago");
 #else
-			if (storedMessage != null)
-			{
+                if (storedMessage != null)
+                {
 #endif
-			if (storedMessage.m_recyclingCount <= 0)
-				m_connection.m_peer.Recycle(storedMessage);
+                    if (storedMessage.m_recyclingCount <= 0)
+                        m_connection.m_peer.Recycle(storedMessage);
 
 #if !DEBUG
-			}
+                }
 #endif
-			m_storedMessages[storeIndex] = new NetStoredReliableMessage();
+                m_storedMessages[storeIndex] = new NetStoredReliableMessage();
+            }
+            catch (NullReferenceException exception)
+			{
+				var arrayString = m_storedMessages == default
+                    ? "default"
+                    : $"NetStoredReliableMessage[{m_storedMessages.Length}]";
+
+                var atIndexString = m_storedMessages == default ? "(n/a)" : "initialized";
+                var messageString = m_storedMessages?[storeIndex].Message == default ? "null" : "initialized";
+                var exceptionDebugMessage =
+                    $"m_storedMessages={arrayString}; m_storedMessages[{storeIndex}]={atIndexString}; m_storedMessages[{storeIndex}].Message={messageString}";
+#if DEBUG
+                throw new NetException(exceptionDebugMessage, exception);
+#else
+                m_connection.m_peer.LogDebug(exceptionDebugMessage);
+                m_connection.m_peer.LogDebug(exception.ToString());
+#endif
+            }
 		}
 
 		// remoteWindowStart is remote expected sequence number; everything below this has arrived properly
