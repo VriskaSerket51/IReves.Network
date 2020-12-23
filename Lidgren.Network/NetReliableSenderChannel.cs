@@ -191,8 +191,9 @@ namespace Lidgren.Network
 #else
                 m_connection.m_peer.LogDebug(exceptionDebugMessage);
                 m_connection.m_peer.LogDebug(exception.ToString());
+                resetTimeout = false;
 #endif
-            }
+			}
 		}
 
 		// remoteWindowStart is remote expected sequence number; everything below this has arrived properly
