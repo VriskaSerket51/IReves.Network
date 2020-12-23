@@ -19,6 +19,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./Lidgren.Network.MultiTarget.sln
     - name: Build
-      run: dotnet build --no-restore --configuration Release ./Lidgren.Network.MultiTarget.sln
+      run: dotnet build --no-restore ./Lidgren.Network.MultiTarget.sln
     - name: Test
       run: dotnet test --no-build --verbosity normal ./Lidgren.Network.MultiTarget.sln
