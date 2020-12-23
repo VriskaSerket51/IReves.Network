@@ -2,9 +2,9 @@ name: AscensionGameDev.Lidgren.Network
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:

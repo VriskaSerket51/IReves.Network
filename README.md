@@ -1,4 +1,4 @@
-# Lidgren.Network ![](https://api.travis-ci.org/RevoluPowered/lidgren-network-gen3.svg?branch=master)
+# Lidgren.Network ![AscensionGameDev.Lidgren.Network](https://github.com/AscensionGameDev/lidgren-network-gen3/workflows/AscensionGameDev.Lidgren.Network/badge.svg)
 Lidgren.Network is a networking library for .NET framework, which uses a single UDP socket to deliver a simple API for connecting a client to a server, reading and sending messages.
 
 This has been updated for use with Unity3D, feel free to send PRs for other bugs fixes.
