@@ -1,8 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net46;net461;net462;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net45;net46;net461;net462;netstandard2.0;net5.0</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PackageProjectUrl>https://github.com/AscensionGameDev/lidgren-network-gen3</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/AscensionGameDev/lidgren-network-gen3.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageId>AscensionGameDev.Lidgren.Network</PackageId>
+    <Authors>Ascension Game Dev, lidgren</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Deterministic>false</Deterministic>
   </PropertyGroup>
 
   <ItemGroup>
