@@ -10,6 +10,8 @@
     <Authors>Ascension Game Dev, lidgren</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Deterministic>false</Deterministic>
+    <AssemblyName>Lidgren.Network</AssemblyName>
+    <RootNamespace>Lidgren.Network</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

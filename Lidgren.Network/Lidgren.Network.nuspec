@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <version>$version$</version>
+    <version>$version$-debug</version>
     <authors>Ascension Game Dev, lidgren</authors>
     <owners>Ascension Game Dev</owners>
     <id>AscensionGameDev.Lidgren.Network</id>
@@ -21,6 +21,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\*.*" target="lib\net46" />
+    <file src="bin\Debug\*.*" target="lib\net46" />
   </files>
 </package>
