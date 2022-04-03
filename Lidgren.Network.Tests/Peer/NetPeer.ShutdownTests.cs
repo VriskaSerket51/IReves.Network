@@ -23,6 +23,8 @@ namespace Lidgren.Network.Tests.Peer
             Peer.Shutdown(outgoingMessage);
 
             TestHelper.WaitFor(() => Server.ConnectionsCount == 0);
+
+#if DEBUG
             TestHelper.HasMessage(
                 PeerMessages,
                 NetIncomingMessageType.DebugMessage,
@@ -33,6 +35,7 @@ namespace Lidgren.Network.Tests.Peer
                         StringComparison.Ordinal
                     )
             );
+#endif
 
             var messageShutdownReason = ServerMessages.Last(
                 message => NetIncomingMessageType.StatusChanged == message.MessageType
@@ -58,6 +61,8 @@ namespace Lidgren.Network.Tests.Peer
             Peer.Shutdown(outgoingMessage, "debugMessage");
 
             TestHelper.WaitFor(() => Server.ConnectionsCount == 0);
+
+#if DEBUG
             TestHelper.HasMessage(
                 PeerMessages,
                 NetIncomingMessageType.DebugMessage,
@@ -68,6 +73,7 @@ namespace Lidgren.Network.Tests.Peer
                         StringComparison.Ordinal
                     )
             );
+#endif
 
             var messageShutdownReason = ServerMessages.Last(
                 message => NetIncomingMessageType.StatusChanged == message.MessageType
@@ -90,6 +96,8 @@ namespace Lidgren.Network.Tests.Peer
             Peer.Shutdown("bye");
 
             TestHelper.WaitFor(() => Server.ConnectionsCount == 0);
+
+#if DEBUG
             TestHelper.HasMessage(
                 PeerMessages,
                 NetIncomingMessageType.DebugMessage,
@@ -100,6 +108,7 @@ namespace Lidgren.Network.Tests.Peer
                         StringComparison.Ordinal
                     )
             );
+#endif
 
             var messageShutdownReason = ServerMessages.Last(
                 message => NetIncomingMessageType.StatusChanged == message.MessageType
@@ -122,6 +131,8 @@ namespace Lidgren.Network.Tests.Peer
             Peer.Shutdown("bye", "debugMessage");
 
             TestHelper.WaitFor(() => Server.ConnectionsCount == 0);
+
+#if DEBUG
             TestHelper.HasMessage(
                 PeerMessages,
                 NetIncomingMessageType.DebugMessage,
@@ -132,6 +143,7 @@ namespace Lidgren.Network.Tests.Peer
                         StringComparison.Ordinal
                     )
             );
+#endif
 
             var messageShutdownReason = ServerMessages.Last(
                 message => NetIncomingMessageType.StatusChanged == message.MessageType
