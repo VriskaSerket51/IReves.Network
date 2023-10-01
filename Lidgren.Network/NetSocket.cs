@@ -5,6 +5,8 @@ namespace Lidgren.Network
 {
     public class NetSocket : INetSocket
     {
+        private static bool _dontFragmentUnsupported;
+
         private Socket Socket { get; set; }
         
         public int ReceiveBufferSize {
@@ -25,7 +27,22 @@ namespace Lidgren.Network
         public bool DontFragment
         {
             get => Socket.DontFragment;
-            set => Socket.DontFragment = value;
+            set
+            {
+                if (_dontFragmentUnsupported)
+                {
+                    return;
+                }
+
+                try
+                {
+                    Socket.DontFragment = value;
+                }
+                catch
+                {
+                    _dontFragmentUnsupported = true;
+                }
+            }
         }
         
         public bool DualMode {
